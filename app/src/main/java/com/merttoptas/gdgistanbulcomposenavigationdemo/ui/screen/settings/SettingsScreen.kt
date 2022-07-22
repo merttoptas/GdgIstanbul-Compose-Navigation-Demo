@@ -18,13 +18,13 @@ import com.merttoptas.gdgistanbulcomposenavigationdemo.R
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.theme.BLUEMAGENTA
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(name: String?) {
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
-        content = { Body() },
+        content = { Body(name) },
         backgroundColor = Color.White,
         topBar = {
             TopAppBar(
@@ -37,7 +37,7 @@ fun SettingsScreen() {
 }
 
 @Composable
-private fun Body() {
+private fun Body(name: String?) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -48,6 +48,11 @@ private fun Body() {
         Text(
             modifier = Modifier,
             text = "Settings Page",
+            fontSize = 18.sp
+        )
+        Text(
+            modifier = Modifier,
+            text = name ?: "",
             fontSize = 18.sp
         )
         Image(
@@ -61,5 +66,5 @@ private fun Body() {
 @Preview
 @Composable
 fun BodyPreview() {
-    Body()
+    Body("name")
 }

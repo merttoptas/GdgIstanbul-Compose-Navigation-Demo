@@ -1,17 +1,13 @@
 package com.merttoptas.gdgistanbulcomposenavigationdemo.navigation
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.*
+import androidx.navigation.compose.*
 import com.merttoptas.gdgistanbulcomposenavigationdemo.component.CustomBottomAppBar
 import com.merttoptas.gdgistanbulcomposenavigationdemo.navigation.nested.loginGraph
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.dashboard.DashboardScreen
@@ -20,15 +16,15 @@ import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.splash.SplashSc
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun NavGraph(startDestination: String = NavScreen.Splash.route) {
-    val navController = rememberNavController()
+fun NavGraph(startDestination: String = NavScreen.Splash.route, navController : NavHostController) {
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val uri = "gdg://settings"
 
     Scaffold(
         bottomBar = {
             BottomNav.values().forEach { navItem ->
-                Log.d("deneme1", currentRoute.toString())
                 if (navItem.route == currentRoute) {
                     CustomBottomAppBar(
                         navController = navController,
@@ -52,8 +48,9 @@ fun NavGraph(startDestination: String = NavScreen.Splash.route) {
                     },
                 )
             }
-            composable(NavScreen.Settings.route) {
-                SettingsScreen()
+            composable(NavScreen.Settings.route.plus("?name={name}"),
+                deepLinks = listOf(navDeepLink { uriPattern = "$uri/{name}"}) ) { backStackEntry->
+                SettingsScreen(backStackEntry.arguments?.getString("name") ?: "",)
             }
 
             composable(NavScreen.Dashboard.route.plus("?userName={userName}"), arguments = listOf(navArgument("userName") { defaultValue = "" })) { backStackEntry ->
