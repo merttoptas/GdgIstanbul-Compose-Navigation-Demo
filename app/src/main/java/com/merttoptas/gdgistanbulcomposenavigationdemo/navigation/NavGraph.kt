@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.merttoptas.gdgistanbulcomposenavigationdemo.component.CustomBottomAppBar
 import com.merttoptas.gdgistanbulcomposenavigationdemo.navigation.nested.loginGraph
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.dashboard.DashboardScreen
+import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.settings.SettingsScreen
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.splash.SplashScreen
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -50,16 +51,14 @@ fun NavGraph(startDestination: String = NavScreen.Splash.route) {
                         }
                     },
                 )
-
             }
+            composable(NavScreen.Settings.route) {
+                SettingsScreen()
+            }
+
             composable(NavScreen.Dashboard.route.plus("?userName={userName}"), arguments = listOf(navArgument("userName") { defaultValue = "" })) { backStackEntry ->
                 DashboardScreen(
                     backStackEntry.arguments?.getString("userName") ?: "",
-                    navigateToLogin = {
-                        navController.navigate(NavScreen.Login.route) {
-                            popUpTo(0)
-                        }
-                    }
                 )
             }
 

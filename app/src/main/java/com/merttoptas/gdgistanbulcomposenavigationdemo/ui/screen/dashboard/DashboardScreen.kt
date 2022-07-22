@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -15,18 +16,14 @@ import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.theme.BLUEMAGENTA
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.theme.LIGHTBLUEMAGENTA
 
 @Composable
-fun DashboardScreen(
-    userName: String,
-    navigateToLogin: () -> Unit
-) {
+fun DashboardScreen(userName: String) {
     val scaffoldState = rememberScaffoldState()
-
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
         content = { Content(userName) },
-        backgroundColor = BLUEMAGENTA
+        backgroundColor = BLUEMAGENTA,
     )
 }
 
