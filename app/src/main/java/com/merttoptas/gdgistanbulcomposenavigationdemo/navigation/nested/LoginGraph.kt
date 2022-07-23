@@ -9,10 +9,6 @@ import com.merttoptas.gdgistanbulcomposenavigationdemo.navigation.NavScreen
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.login.LoginScreen
 import com.merttoptas.gdgistanbulcomposenavigationdemo.ui.screen.register.RegisterScreen
 
-/**
- * Created by merttoptas on 23.06.2022
- */
-
 @ExperimentalComposeUiApi
 fun NavGraphBuilder.loginGraph(navController: NavController) {
     navigation(startDestination = NavScreen.Login.route, route = "loginGraph") {
